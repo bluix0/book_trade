@@ -7,7 +7,7 @@ async function loadFavorite(){
 
     const res =
     await fetch(
-        `http://localhost:8080/favorite/list?userId=${userId}`
+        `/favorite/list?userId=${userId}`
     );
 
     const data =
@@ -64,7 +64,7 @@ async function removeFavorite(bookId){
         localStorage.getItem("userId");
 
     await fetch(
-        `http://localhost:8080/favorite/remove?userId=${userId}&bookId=${bookId}`,
+        `/favorite/remove?userId=${userId}&bookId=${bookId}`,
         {
             method:"DELETE"
         }

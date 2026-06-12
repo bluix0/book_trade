@@ -7,7 +7,7 @@ async function loadBooks(){
 
     const res =
     await fetch(
-        `http://localhost:8080/book/my?sellerId=${userId}`
+        `/book/my?sellerId=${userId}`
     );
 
     const data =
@@ -60,7 +60,7 @@ async function loadBooks(){
 async function offBook(id){
 
     await fetch(
-        `http://localhost:8080/book/off?id=${id}`,
+        `/book/off?id=${id}`,
         {
             method:"PUT"
         }
@@ -72,7 +72,7 @@ async function offBook(id){
 async function onBook(id){
 
     await fetch(
-        `http://localhost:8080/book/on?id=${id}`,
+        `/book/on?id=${id}`,
         {
             method:"PUT"
         }
@@ -84,7 +84,7 @@ async function onBook(id){
 async function deleteBook(id){
 
     await fetch(
-        `http://localhost:8080/book/delete?id=${id}`,
+        `/book/delete?id=${id}`,
         {
             method:"PUT"
         }

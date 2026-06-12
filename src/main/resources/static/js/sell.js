@@ -30,7 +30,7 @@ document
 
     const res =
     await fetch(
-        "http://localhost:8080/book/add",
+        "/book/add",
         {
             method:"POST",
             headers:{
