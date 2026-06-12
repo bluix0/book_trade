@@ -1,0 +1,213 @@
+/* 导航栏 */
+
+.navbar{
+
+    background:#2c3e50;
+
+    padding:15px;
+
+    margin-bottom:20px;
+
+    border-radius:8px;
+}
+
+.navbar a{
+
+    color:white;
+
+    margin-right:20px;
+
+    text-decoration:none;
+
+    font-weight:bold;
+}
+
+.navbar a:hover{
+
+    color:#f1c40f;
+}
+
+.username{
+
+    float:right;
+
+    color:white;
+}
+
+/* 全局字体和背景 */
+body {
+    font-family: "Microsoft YaHei", sans-serif;
+    background-color: #f2f2f2;
+    margin: 20px;
+    color: #333;
+}
+
+/* 标题 */
+h2, h3 {
+    color: #444;
+}
+
+/* 表单样式 */
+form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    width: 300px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+form input[type="text"],
+form input[type="password"],
+form input[type="number"],
+form select {
+    width: 100%;
+    padding: 6px 10px;
+    margin: 6px 0 12px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+form button {
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+form button:hover {
+    background-color: #45a049;
+}
+
+/* 链接 */
+a {
+    color: #4CAF50;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* 图书卡片 */
+.bookCard, #bookList div {
+    background-color: #fff;
+    padding: 12px;
+    margin-bottom: 12px;
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+/* 图书标题 */
+.bookCard h4, #bookList h3 {
+    margin: 0 0 8px 0;
+}
+
+/* 按钮 */
+.bookCard button, #bookList button {
+    margin-top: 6px;
+    padding: 5px 10px;
+    background-color: #2196F3;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.bookCard button:hover, #bookList button:hover {
+    background-color: #1976D2;
+}
+
+/* 灰色已下架或已删除 */
+.gray {
+    color: gray;
+}
+
+/* 收藏页面按钮 */
+#favoriteList button {
+    margin-top: 6px;
+    background-color: #f44336;
+}
+
+#favoriteList button:hover {
+    background-color: #d32f2f;
+}
+
+/* 页面容器 */
+
+.container{
+
+    width:1200px;
+
+    margin:auto;
+}
+
+/* 搜索栏 */
+
+.search-box{
+
+    background:white;
+
+    padding:20px;
+
+    border-radius:10px;
+
+    margin-bottom:20px;
+
+    box-shadow:0 2px 8px rgba(0,0,0,.1);
+}
+
+.search-box input{
+
+    width:300px;
+
+    padding:10px;
+}
+
+/* 图书列表 */
+
+.book-container{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:20px;
+}
+
+/* 图书卡片 */
+
+.bookCard{
+
+    width:280px;
+
+    background:white;
+
+    padding:15px;
+
+    border-radius:10px;
+
+    box-shadow:0 2px 8px rgba(0,0,0,.1);
+
+    transition:.3s;
+}
+
+.bookCard:hover{
+
+    transform:translateY(-5px);
+}
+
+.bookCard h4{
+
+    color:#2c3e50;
+}
+
+.bookCard button{
+
+    width:100%;
+}

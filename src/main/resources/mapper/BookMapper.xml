@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.booktrade.mapper.BookMapper">
+
+    <!-- 插入图书 -->
+    <insert id="insert" parameterType="com.booktrade.entity.Book" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO book(isbn, book_name, price, contact, condition_level, status, seller_id, create_time)
+        VALUES (#{isbn}, #{bookName}, #{price}, #{contact}, #{conditionLevel}, #{status}, #{sellerId}, #{createTime})
+    </insert>
+
+    <!-- 查询所有在售图书 -->
+    <select id="findAllSaleBooks" resultType="com.booktrade.entity.Book">
+        SELECT id, isbn, book_name AS bookName, price, contact, condition_level AS conditionLevel, 
+               status, seller_id AS sellerId, create_time AS createTime
+        FROM book
+        WHERE status = '上架在售'
+        ORDER BY create_time DESC
+    </select>
+
+    <!-- 按书名模糊搜索 -->
+    <select id="searchByBookName" resultType="com.booktrade.entity.Book">
+        SELECT id, isbn, book_name AS bookName, price, contact, condition_level AS conditionLevel, 
+               status, seller_id AS sellerId, create_time AS createTime
+        FROM book
+        WHERE book_name LIKE CONCAT('%', #{keyword}, '%')
+          AND status = '上架在售'
+        ORDER BY create_time DESC
+    </select>
+
+    <!-- 根据ISBN查书 -->
+    <select id="findByIsbn" parameterType="String" resultType="com.booktrade.entity.Book">
+        SELECT id, isbn, book_name AS bookName, price, contact, condition_level AS conditionLevel, 
+               status, seller_id AS sellerId, create_time AS createTime
+        FROM book
+        WHERE isbn = #{isbn}
+          AND status = '上架在售'
+    </select>
+
+    <!-- 查询卖家自己的所有图书 -->
+    <select id="findBySellerId" parameterType="Long" resultType="com.booktrade.entity.Book">
+        SELECT id, isbn, book_name AS bookName, price, contact, condition_level AS conditionLevel, 
+               status, seller_id AS sellerId, create_time AS createTime
+        FROM book
+        WHERE seller_id = #{sellerId}
+        ORDER BY create_time DESC
+    </select>
+
+    <!-- 更新图书状态（上下架/删除） -->
+    <update id="updateStatus" parameterType="map">
+        UPDATE book
+        SET status = #{status}
+        WHERE id = #{id}
+    </update>
+
+    <!-- 根据ID查询图书 -->
+    <select id="findById" parameterType="Long" resultType="com.booktrade.entity.Book">
+        SELECT id, isbn, book_name AS bookName, price, contact, condition_level AS conditionLevel, 
+               status, seller_id AS sellerId, create_time AS createTime
+        FROM book
+        WHERE id = #{id}
+    </select>
+
+</mapper>

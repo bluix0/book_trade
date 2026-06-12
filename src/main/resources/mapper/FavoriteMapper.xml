@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.booktrade.mapper.FavoriteMapper">
+
+    <insert id="addFavorite"
+            parameterType="com.booktrade.entity.Favorite">
+
+        INSERT INTO favorite
+        (
+            user_id,
+            book_id,
+            create_time
+        )
+        VALUES
+        (
+            #{userId},
+            #{bookId},
+            #{createTime}
+        )
+
+    </insert>
+
+    <delete id="removeFavorite">
+
+        DELETE FROM favorite
+        WHERE user_id=#{userId}
+        AND book_id=#{bookId}
+
+    </delete>
+
+    <select id="findOne"
+            resultType="com.booktrade.entity.Favorite">
+
+        SELECT *
+        FROM favorite
+        WHERE user_id=#{userId}
+        AND book_id=#{bookId}
+
+    </select>
+
+    <select id="findFavoriteBooks"
+            resultType="com.booktrade.entity.Book">
+
+        SELECT
+            b.id,
+            b.isbn,
+            b.book_name AS bookName,
+            b.price,
+            b.contact,
+            b.condition_level AS conditionLevel,
+            b.status,
+            b.seller_id AS sellerId,
+            b.create_time AS createTime
+
+        FROM favorite f
+        JOIN book b
+        ON f.book_id=b.id
+
+        WHERE f.user_id=#{userId}
+
+        ORDER BY f.create_time DESC
+
+    </select>
+    
+<select id="findBookById"
+        parameterType="Long"
+        resultType="com.booktrade.entity.Book">
+
+    SELECT
+        id,
+        isbn,
+        book_name AS bookName,
+        price,
+        contact,
+        condition_level AS conditionLevel,
+        status,
+        seller_id AS sellerId,
+        create_time AS createTime
+
+    FROM book
+
+    WHERE id = #{id}
+
+</select>
+
+</mapper>
