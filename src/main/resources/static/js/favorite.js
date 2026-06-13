@@ -1,74 +1,77 @@
+let isLoading = false;
+
 loadFavorite();
 
-async function loadFavorite(){
+async function loadFavorite() {
+    if (isLoading) return;
+    isLoading = true;
 
-    const userId =
-        localStorage.getItem("userId");
+    const userId = localStorage.getItem("userId");
+    const favoriteList = document.getElementById("favoriteList");
+    favoriteList.innerHTML = '<div class="empty-message">加载中...</div>';
 
-    const res =
-    await fetch(
-        `/favorite/list?userId=${userId}`
-    );
+    try {
+        const res = await fetch(`/favorite/list?userId=${userId}`);
+        const data = await res.json();
 
-    const data =
-        await res.json();
-
-    const favoriteList =
-        document.getElementById("favoriteList");
-
-    favoriteList.innerHTML="";
-
-    data.data.forEach(book=>{
-
-        let color="black";
-
-        if(
-            book.status==="下架不可售" ||
-            book.status==="已删除"
-        ){
-            color="gray";
+        if (!data.data || data.data.length === 0) {
+            favoriteList.innerHTML = '<div class="empty-message">暂无收藏，去首页看看喜欢的书吧 ❤️</div>';
+            return;
         }
 
-        const div =
-        document.createElement("div");
+        favoriteList.innerHTML = "";
 
-        div.innerHTML=`
-        <hr>
+        data.data.forEach(book => {
+            const div = document.createElement("div");
+            div.className = "bookCard";
+            div.innerHTML = `
+                <div class="book-cover">❤️</div>
+                <h4>${escapeHtml(book.bookName)}</h4>
+                <p>ISBN：${escapeHtml(book.isbn)}</p>
+                <p>价格：<span class="price">￥${escapeHtml(String(book.price))}</span></p>
+                <p>联系方式：${escapeHtml(book.contact || '暂无')}</p>
+                <p>状态：${escapeHtml(book.status)}</p>
+                <button data-bookid="${book.id}" class="remove-fav-btn">取消收藏</button>
+            `;
+            favoriteList.appendChild(div);
+        });
 
-        <div style="color:${color}">
+        // 绑定取消收藏事件
+        document.querySelectorAll(".remove-fav-btn").forEach(btn => {
+            btn.addEventListener("click", async function(e) {
+                const bookId = this.getAttribute("data-bookid");
+                if (confirm("确定要取消收藏这本书吗？")) {
+                    await removeFavorite(bookId, this);
+                }
+            });
+        });
 
-        <h3>${book.bookName}</h3>
-
-        ISBN:${book.isbn}<br>
-
-        价格:${book.price}<br>
-
-        状态:${book.status}<br>
-
-        </div>
-
-        <button onclick="removeFavorite(${book.id})">
-            取消收藏
-        </button>
-        `;
-
-        favoriteList.appendChild(div);
-
-    });
-
+    } catch (err) {
+        console.error(err);
+        favoriteList.innerHTML = '<div class="empty-message">加载失败，请刷新重试 ⚠️</div>';
+    } finally {
+        isLoading = false;
+    }
 }
 
-async function removeFavorite(bookId){
+async function removeFavorite(bookId, btn) {
+    if (btn.disabled) return;
+    btn.disabled = true;
+    const originalText = btn.innerText;
+    btn.innerText = "处理中...";
 
-    const userId =
-        localStorage.getItem("userId");
+    const userId = localStorage.getItem("userId");
 
-    await fetch(
-        `/favorite/remove?userId=${userId}&bookId=${bookId}`,
-        {
-            method:"DELETE"
-        }
-    );
-
-    loadFavorite();
-}
+    try {
+        await fetch(`/favorite/remove?userId=${userId}&bookId=${bookId}`, {
+            method: "DELETE"
+        });
+        alert("已取消收藏");
+        await loadFavorite(); // 重新加载列表
+    } catch (err) {
+        console.error(err);
+        alert("操作失败，请稍后重试");
+        btn.innerText = originalText;
+        btn.disabled = false;
+    }
+}s

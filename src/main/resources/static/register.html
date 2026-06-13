@@ -2,19 +2,29 @@
 <html lang="zh">
 <head>
     <meta charset="UTF-8">
-    <title>注册</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>用户注册</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <script src="js/navbar.js"></script>
-<h2>注册</h2>
-<form id="registerForm">
-    <label>用户名: <input type="text" id="username" required></label><br>
-    <label>密码: <input type="password" id="password" required></label><br>
-    <button type="submit">注册</button>
-</form>
-<p>已有账号？<a href="login.html">登录</a></p>
+
+<script src="js/common.js"></script>
+<script src="js/navbar.js"></script>
+
+<div class="login-wrapper">
+    <div class="login-card">
+        <h1>📚 二手书交易平台</h1>
+        <h3>用户注册</h3>
+        <form id="registerForm">
+            <input type="text" id="username" placeholder="请输入用户名" required>
+            <input type="password" id="password" placeholder="请输入密码" required>
+            <button type="submit" id="registerBtn">注册</button>
+        </form>
+        <p>已有账号？<a href="login.html">立即登录</a></p>
+    </div>
+</div>
 
 <script src="js/register.js"></script>
+
 </body>
 </html>

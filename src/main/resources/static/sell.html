@@ -2,46 +2,46 @@
 <html lang="zh">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>发布图书</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
+<script src="js/common.js"></script>
 <script src="js/auth.js"></script>
-
 <script src="js/navbar.js"></script>
 
-<h2>发布图书</h2>
+<div class="container sell-container">
+    <div class="welcome-card">
+        <h2>发布图书</h2>
+        <p>填写图书信息后即可发布</p>
+    </div>
 
-<form id="sellForm">
+    <form id="sellForm" class="sell-form">
+        <label>ISBN</label>
+        <input type="text" id="isbn" required placeholder="例如：9787115533490">
 
-    ISBN：
-    <input type="text" id="isbn"><br><br>
+        <label>书名</label>
+        <input type="text" id="bookName" required placeholder="请输入书名">
 
-    书名：
-    <input type="text" id="bookName"><br><br>
+        <label>价格（元）</label>
+        <input type="number" id="price" step="0.01" min="0" required placeholder="0.00">
 
-    价格：
-    <input type="number" id="price"><br><br>
+        <label>联系方式</label>
+        <input type="text" id="contact" required placeholder="手机号/微信号/QQ">
 
-    联系方式：
-    <input type="text" id="contact"><br><br>
+        <label>成色</label>
+        <select id="conditionLevel">
+            <option>全新</option>
+            <option>微瑕</option>
+            <option>较旧</option>
+            <option>破损</option>
+        </select>
 
-    成色：
-    <select id="conditionLevel">
-        <option>全新</option>
-        <option>微瑕</option>
-        <option>较旧</option>
-        <option>破损</option>
-    </select>
-
-    <br><br>
-
-    <button type="submit">
-        发布
-    </button>
-
-</form>
+        <button type="submit" id="sellBtn">发布图书</button>
+    </form>
+</div>
 
 <script src="js/sell.js"></script>
 
